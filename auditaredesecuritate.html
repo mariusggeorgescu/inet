@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iNet Corporation Analytics</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- custom css file link -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- scroll to top button-->
+    <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa-solid fa-circle-arrow-up"></i></button>
+
+
+    <!-- header section starts -->
+    <header class="header">
+
+       <section class="flex">
+
+            <a href="index.html#home" class="logo"><img src="img/Icon iNet.png" alt="logo"></a>
+
+            <nav class="navbar">
+                <a href="index.html#home">acasa</a>
+                <a href="index.html#despre-noi">despre noi</a>
+                <!-- <a href="#solutii">solutii</a> -->
+                <a href="index.html#servicii">servicii</a>
+                <a href="index.html#contact">contact</a>
+            </nav>
+
+            <div id="menu-btn" class="fas fa-bars-staggered"></div>
+
+       </section>
+
+    </header>
+
+    <!-- header section ends -->
+
+
+
+    
+<!-- FORMULAR cu salvare -->
+<section class="form">
+    <h2 class="section-title" style="font-size: 3rem;
+    letter-spacing: .51rem;">Solicitare audit de securitate IT</h2>
+<form id="form" method="POST">
+    <div class="field">
+      
+      <div class="control">
+        <input
+          class="input"
+          type="text"
+          placeholder="Denumire companie"
+          name="Client Name"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="field">
+      
+      <div class="control">
+        <input
+          class="input"
+          type="tel"
+          placeholder="Numar telefon"
+          name="tel"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="field">
+      
+      <div class="control">
+        <input
+          class="input"
+          type="email"
+          placeholder="Adresa Email"
+          name="Email"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="field">
+      
+      <div class="control">
+        <input
+          class="input"
+          type="text"
+          placeholder="Nume si Prenume"
+          name="Nume"
+          required
+        />
+      </div>
+    </div>
+
+    
+
+    
+    <div class="field">
+      
+      <div class="control">
+        <textarea
+          class="textarea"
+          placeholder="Informatii aditionale"
+          name="Notes"
+        ></textarea>
+      </div>
+    </div>
+
+    
+        <button class="home-btn" type="submit" id="submit-button">
+          Trimite solicitarea
+        </button>
+      
+  </form>
+</section>
+
+
+  <div
+    id="message"
+    style="
+      display: none;
+      margin: 20px;
+      font-weight: bold;
+      color: #E93F39;
+      padding: 8px;
+      background-color:  #F8F8FF;
+      border-radius: 4px;
+      border-color: 1px solid rgba(0,0,0,.3);
+      font-size: 2.5rem;
+    "
+  ></div>
+
+  <script>
+    document.getElementById("form").addEventListener("submit", function (e) {
+      e.preventDefault(); // Prevent the default form submission
+      document.getElementById("message").textContent = "Se trimte ...";
+      document.getElementById("message").style.display = "block";
+      document.getElementById("submit-button").disabled = true;
+
+      // Collect the form data
+      var formData = new FormData(this);
+      var keyValuePairs = [];
+      for (var pair of formData.entries()) {
+        keyValuePairs.push(pair[0] + "=" + pair[1]);
+      }
+
+      var formDataString = keyValuePairs.join("&");
+
+      // Send a POST request to your Google Apps Script
+      fetch(
+        "https://script.google.com/macros/s/AKfycbzcm-caS0uZoHPMXo-lnQiYp9NcX70SxyP4WPZRREMX886pSC_jJTPyfwBrbcomCXnG/exec",
+        {
+          redirect: "follow",
+          method: "POST",
+          body: formDataString,
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8",
+          },
+        }
+      )
+        .then(function (response) {
+          // Check if the request was successful
+          if (response) {
+            return response; // Assuming your script returns JSON response
+          } else {
+            throw new Error("Failed to submit the form.");
+          }
+        })
+        .then(function (data) {
+          // Display a success message
+          document.getElementById("message").textContent =
+            "Trimis cu succes!";
+          document.getElementById("message").style.display = "block";
+          document.getElementById("message").style.backgroundColor = "#F8F8FF";
+          document.getElementById("message").style.color = "#E93F39";
+          document.getElementById("submit-button").disabled = false;
+          document.getElementById("form").reset();
+
+          setTimeout(function () {
+            document.getElementById("message").textContent = "";
+            document.getElementById("message").style.display = "none";
+          }, 2600);
+        })
+        .catch(function (error) {
+          // Handle errors, you can display an error message here
+          console.error(error);
+          document.getElementById("message").textContent =
+            "An error occurred while submitting the form.";
+          document.getElementById("message").style.display = "block";
+        });
+    });
+  </script>
+
+
+<!-- FORMULAR cu salvere ENDS -->
+
+
+<!--footer section-->
+<section id="footer">
+    <div class="footer">
+        <div class="main">
+            <div class="list">
+                <h4>Legaturi rapide</h4>
+                <ul>
+                    <li><a href="index.html#home">acasa</a></li>
+                    <li><a href="index.html#despre-noi">despre noi</a></li>
+                    <li><a href="index.html#servicii">servicii</a></li>
+                    <!-- <li><a href="#solutii">solutii</a></li> -->
+                    <li><a href="index.html#contact">contact</a></li>
+                </ul>
+            </div>
+
+            
+            <div class="list">
+                <h4>Info Contact</h4>
+                <ul>
+                    <li><a href="#">iNET Corporation Analytics SRL</a></li>
+                    <li><a href="#">str. Veteranilor nr. 75</a></li>
+                    <li><a href="#">Oradea, jud. BIHOR, Romania</a></li>
+                    <li><a href="">tel: 0731 010 677</a></li>
+                    <li><a href="mailto: vanzari@netcorporation.tech">vanzari@netcorporation.tech</a></li>
+                    <li><a href="#home">www.netcorporation.tech</a></li>
+                </ul>
+            </div>
+
+            <div class="list">
+                <h4>Urmareste-ne</h4>
+                <div class="social">
+                    <a href="https://www.facebook.com/inetcorporationanalytics" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/inetcorporationanalytics/" target="_blank"><i class="fa-brands fa-instagram"></i></i></a>
+                    <a href="https://www.linkedin.com/company/inet-corporation" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="end-text">
+        <p>Copyright @2024 Toate drepturile rezervate </p>
+    </div>
+ </section>
+    
+
+
+
+
+
+    <!-- custom js file  -->
+    <script src="script.js"></script>
+</body>
+</html>
